@@ -17,8 +17,8 @@ class Files extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Index Files class';
-		$data['page'] = 'file';
-		$this->load->view('templates/eNno/blog',$data);
+		$data['page'] = 'files/files';
+		$this->load->view('design/index',$data);
 	}
 
 
@@ -60,7 +60,7 @@ class Files extends CI_Controller {
 		    	'file_size' => $data['upload_data']['file_size'],
 		    	'client_name' => $data['upload_data']['client_name'],
 		    	'user_upload' => $this->session->user_id,
-		    	'reff' => ($this->input->get('id'))?:'',
+		    	// 'reff' => ($this->input->get('id'))?:'',
 		    ));
 		    // end insert to db
 		    $data['id_file'] = $this->db->insert_id();
@@ -132,10 +132,10 @@ class Files extends CI_Controller {
 
 
 
-    public function load($id='')
+    public function load($id=1)
     {
+    	/*
 		$ret = array();
-		/*
 		$dir = $this->path;
 		$files = scandir($dir);
 		foreach($files as $file)
@@ -170,28 +170,88 @@ class Files extends CI_Controller {
 			}
 			$ret[] = $details;
 		}
-		// echo json_encode($ret);
-		print_r($ret);
+		echo json_encode($ret);
 		*/
+
+		// variabel array
 		$isi = array();
 		$data = array();
-		$isi["draw"] = 1;
+		$id = isset($_POST['status']) ? $_POST['status'] : 1;
+
+		// datatable variable
+		$start = (int) (($this->db->escape_str($_POST['start'])) ? : 0);
+		$draw = (int) (($this->db->escape_str($_POST['draw'])) ? : 1);
+		$length = (int) (($this->db->escape_str($_POST['length'])) ? : 10);
+		$order_column = (int) (($this->db->escape_str($_POST['order'][0]['column'])) ? : 0);
+		$order_dir = ($this->db->escape_str($_POST['order'][0]['dir'])) ? : 'asc';
+		$columns_name = array();
+		for ($i=0; $i < count($_POST['columns']); $i++) { 
+			array_push($columns_name, $this->db->escape_str($_POST['columns'][$i]['data']));
+		}
+		$search_value = $this->db->escape_str($_POST['search']['value']);
+		// end datatable variable
+
+		// query
+		$where = "";
+		if($search_value<>''){
+			$where .= " AND (";
+			foreach ($columns_name as $key => $value) {
+				if($key > 0){
+					$where .= "OR";
+				}
+				$where .= " ".$value." like '%".$search_value."%' ESCAPE '!' ";
+			}
+			$where .= ") ";
+		}
+		$jml = $this->db->query("SELECT count(file_id) as field from files where status=? ".$where, array($id))->row()->field;
+		$where .= "ORDER BY ".$columns_name[$order_column]." ".$order_dir;
+		$isi['wsearch'] = $where;
+		$q = $this->db->query("SELECT * FROM `files` WHERE status=? ".$where." limit ?, ? ", array($id, $start, $length))->result();
+		// end query
+
+		// query builder
+		/*$this->db->where('status', $id);
+		if($search_value<>''){
+			foreach ($columns_name as $key => $value) {
+				if($key>0){
+					$this->db->or_like($value, $search_value);
+				}else{
+					$this->db->like($value, $search_value);
+				}
+			}
+		}
+		$this->db->order_by($columns_name[$order_column], $order_dir);
+		$this->db->limit($length, $start);
+		$q = $this->db->get('files')->result();*/
+		// end query builder
+
+		// iterasi
 		$no = 0;
-		$q = $this->db->get_where('files', array('status'=>$id))->result();
 		if(!empty($q)){
 			$row = array();
 			foreach ($q as $key) {
-				array_push($data, $key);
-				/*echo'
+				/*$data["link"] = '
 			      	[<a href="'.site_url('files/download/?filename='.$key->file_name).'" target="_blank">download</a>]
 			      	[<a href="'.site_url('files/delete/?filename='.$key->file_name).'" onclick="return confirm(\'delete file?\')" target="_blank">delete</a>]
 			    ';*/
+				array_push($data, $key);
 			}
 		}
-		$jml = $this->db->affected_rows();
+		// $record_view = $this->db->affected_rows();
+		// $jml = $this->db->count_all('files');
+		// end iterasi
+
+		// for datagrid
+		$isi["draw"] = $draw;
 		$isi["recordsTotal"] = $jml;
 		$isi["recordsFiltered"] = $jml;
 		$isi['data'] = $data;
+		// end for datagrid
+
+		/*$isi["draw"] = $draw;
+		$isi["length"] = $length;
+		$isi["rows"] = $data;
+		$isi["total"] = $jml;*/
 
 		echo json_encode($isi);
 	}
@@ -231,99 +291,6 @@ class Files extends CI_Controller {
 			}
 		}
 	}
-
-    function kirim_email_notifikasi($rapat='', $idpeg='')
-    {
-    	$data['data'] = $this->open->get_rapat($rapat);
-    	if(!empty($data['data'])){
-    		// echo json_encode($data['data']);
-    		// $to = array();
-    		$to = '';
-    		$cc = array();
-    		$pstndk = $this->open->daftar_pegawai_tindaklanjut_getdata_id($idpeg);
-	        $tempat = ''.$data['data']->ruang_nama.', '.$data['data']->area_name.', Lt. '.$data['data']->ruang_lantai.', '.$data['data']->ruang_alamat;
-	        $file = array();
-	        $emails = '';
-
-	        #Email kastaf & staf khusus
-	        $qr = $this->db->query("SELECT * FROM spd_pegawai where status=? and jabatan in ? ", array(1,array(10,35)))->result();	#10=kastaf, 35=staf khusus
-	        if(!empty($qr)){
-	        	foreach ($qr as $key) {
-	        		if(array_keys(array(10,35),$key->jabatan)) {
-	        			array_push($cc, $key->email2);
-	        		}
-	        	}
-	        }
-	        #Email sespri
-			foreach ($this->open->create_array($this->open->get_val_param('sespri'),',') as $key => $value) {
-				array_push($cc, $value);
-			}
-
-    		if(!empty($pstndk)){
-    			foreach ($pstndk as $key) {
-    				// array_push($to, $key->email);
-    				$to = $key->email;
-					$qtemp = $this->db->get_where('template_mail', array('template_status'=>1, 'template_id'=>11))->row();
-					if(!empty($qtemp)){
-						$body_message = str_replace(
-							array(
-								'{nama_rapat}', '{waktu}', '{tempat}', '{namaps}', '{tanggalps}', '{tindaklanjutps}'
-							), 
-							array(
-								$data['data']->rapat_nama, $this->open->tanggal($data['data']->rapat_tgl1, 6).' '.$data['data']->rapat_jam1.' s/d selesai', $tempat, $key->name.' ( '.$key->jabatan.' | '.$key->inskerja.' )', $key->tndk_batasakhir, $key->tndk_tugas
-							), 
-							$qtemp->template_content
-						);
-					}
-					
-		        	// echo json_encode($almt);
-		        	if($key->tndk_emailsend<3){
-			        	$almt = array(
-			        		'to' => $to,
-			        		// 'cc' => $cc,
-			        		'subject' => 'Notifikasi Tindak Lanjut Rapim yang harus segera diselesaikan',
-			        		'message' => $body_message,
-			        		'attach' => $file,
-			        	);
-			        	// $rtn = $this->open->send_mail($almt);
-			        	// if($rtn){
-			        	// 	$emails .= $key->email.', ';
-			        	// }
-			        	// $this->db->update('rapat_notulen_tindaklanjut', array('tndk_emailsend'=>3), array('tndk_id'=>$key->tndk_id));
-			        }elseif($key->tndk_emailsend==3 && $key->tndk_emailsend<4){
-			        	$almt = array(
-			        		'to' => $to,
-			        		'cc' => $cc,
-			        		'subject' => 'Notifikasi Tindak Lanjut Rapim yang harus segera diselesaikan',
-			        		'message' => $body_message,
-			        		'attach' => $file,
-			        	);
-			        	// $rtn = $this->open->send_mail($almt);
-			        	// if($rtn){
-			        	// 	$emails .= $key->email.', ';
-			        	// }
-			        	// $this->db->update('rapat_notulen_tindaklanjut', array('tndk_emailsend'=>4), array('tndk_id'=>$key->tndk_id));
-			        }
-		        }
-		        echo $emails;
-	        }
-    	}
-    }
-
-
-
-    function pimpinan()
-    {
-    	if($_POST)
-    	{
-    		$rpt = $this->input->post('id_rpt');
-    		$psr = $this->input->post('id_psr');
-    		$this->db->update('rapat_peserta', array('pimpinan'=>1), array('peserta_id'=>$psr));
-    		// $this->db->update('rapat_notulen_tindaklanjut', array('pimpinan'=>0), array('peserta_id'=>$this->input->post('id_psr'))));
-			$this->db->query("UPDATE `rapat_peserta` SET `pimpinan`=0 where rapat_id=? and peserta_id not in (?)  ", array($rpt, array($psr)));
-    	}
-    }
-
 
 
 }

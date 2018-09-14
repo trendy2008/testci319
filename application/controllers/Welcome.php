@@ -28,7 +28,8 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data['page'] = 'welcome_message';
+		$this->load->view('design/index',$data);
 	}
 
 
@@ -84,7 +85,9 @@ class Welcome extends CI_Controller {
 		}
 		$vars['isi'] = $isi;
 
-		$this->load->view('blogs/read', $vars);
+		// $this->load->view('blogs/read', $vars);
+		$vars['page'] = 'blogs/read';
+		$this->load->view('design/index',$vars);
 	}
 
 
@@ -132,6 +135,17 @@ class Welcome extends CI_Controller {
 
 		// print source img
 		print base_url().'src/captcha/'.$cap['time'].'.jpg';
+	}
+
+
+
+	public function token_csrf()
+	{
+		$csrf = array(
+			'name' => $this->security->get_csrf_token_name(),
+			'hash' => $this->security->get_csrf_hash()
+		);
+		echo json_encode($csrf);
 	}
 
 
