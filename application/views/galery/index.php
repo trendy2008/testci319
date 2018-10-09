@@ -14,6 +14,20 @@
 							</select>
 						</td>
 					</tr>
+					<tr>
+						<td>Tampil</td>
+						<td>:</td>
+						<td>
+					  		<select id="length" name="length" onchange="get_data()">
+					  			<option value="5" selected="selected">5</option>
+					  			<option value="10">10</option>
+					  			<option value="25">25</option>
+					  			<option value="50">50</option>
+					  			<option value="100">100</option>
+					  			<option value="150">150</option>
+					  		</select>
+				  		</td>
+					</tr>
 				</table>
 			</div>
 			<div class="col-6">
@@ -64,12 +78,14 @@
 		    "bFilter": true,
 		    "bInfo": true,
 		    "bAutoWidth": false,
+		    "pageLength": $('#length').val(),
 	        processing: true,
 	        serverSide: true,
 	        ajax: {
 				"url": "<?=site_url('galery/index/')?>"+id,
 				"type": "POST",
 				"data": {
+					"length": $('#length').val(),
 					"csrf_test_name": "<?=$this->security->get_csrf_hash()?>",
 					"status": id,
 				}
