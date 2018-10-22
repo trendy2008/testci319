@@ -1,7 +1,8 @@
 
 
-<script src="https://layanan-ksp.go.id/kepegawaian/src/Chart.min.js"></script>
-<script src="https://layanan-ksp.go.id/kepegawaian/src/Chart.PieceLabel.js"></script>
+<script src="<?=base_url()?>src/js/Chart.bundle.js"></script>
+<script src="<?=base_url()?>src/js/Chart.PieceLabel.js"></script>
+<script src="<?=base_url()?>src/js/chartjs-plugin-labels.min.js"></script>
 <div class="row">
 	<div class="col-6">
 		<div class="card">
@@ -303,87 +304,62 @@
 			<div class="card-header">Pie</div>
 			<div class="card-body">
 				<canvas id="pieChart3" style="height: 250px"></canvas>
-				<script type="text/javascript">
-					// $(function(){
-					// 	drawSegmentValues();
-					// })
+				<script type="text/javascript">					
+					var color = Chart.helpers.color;
+					$(function(){
+						new Chart(document.getElementById("pieChart3"), {
+					        type: 'pie',
+					        data: {
+					            datasets: [{
+					                data: [
+					                	13,1,4,2,				                ],
+					                backgroundColor: [
+					                	color('turquoise').alpha(0.5).rgbString(),color('pink').alpha(0.5).rgbString(),color('orange').alpha(0.5).rgbString(),color('plum').alpha(0.5).rgbString(),				                ],
+					                // label: 'Status Rapat'
+					            }],
+					            labels: [
+									"Internal","Kementerian / Lembaga","BUMN","Lainnya",				            ]
+					        },
+					        options: {
+					            responsive: true,
+			            		maintainAspectRatio: false,
+					            title: {
+					              display: true,
+					              text: 'Jumlah Aplikasi pada setiap kategori',
+					              position: 'bottom'
+					            },
+					            legend:{
+					              display: true,
+					              position: 'left',
+					            },
 
-					var data = [
-					    {
-					        value: 100,
-					        color:"#F7464A",
-					        highlight: "#FF5A5E",
-					        label: "Red"
-					    },
-					    {
-					        value: 50,
-					        color: "#46BFBD",
-					        highlight: "#5AD3D1",
-					        label: "Green"
-					    },
-					    {
-					        value: 25,
-					        color: "#FDB45C",
-					        highlight: "#FFC870",
-					        label: "Yellow"
-					    },
-					    {
-					        value: 25,
-					        color: "green",
-					        highlight: "#FFC870",
-					        label: "Yellow"
-					    },    
-					];
+					            // tambahan plugins
+					            plugins:{
+									// labels: {
+									// 	render: 'value',
+									// 	fontSize: 14,
+									// 	fontStyle: 'bold',
+									// 	fontColor: '#000',
+									// 	fontFamily: '"Lucida Console", Monaco, monospace'
+									// }
+									labels: [
+									    {
+									      render: 'label',
+									      position: 'outside'
+									    },
+									    {
+									    	render: 'value',
+											fontSize: 18	,
+											fontStyle: 'bold',
+											fontColor: '#000',
+											fontFamily: '"Lucida Console", Monaco, monospace'
+									    }
+									  ]			            	
+					            }
+							},
+					    });
 
-					var canvas = document.getElementById("pieChart3");
-					var ctx = canvas.getContext("2d");
-					var midX = canvas.width/2;
-					var midY = canvas.height/2
-					var totalValue = getTotalValue(data);
-
-					// Create a pie chart
-					var myPieChart = new Chart(ctx).Pie(data, {
-					    showTooltips: false,
-					    onAnimationProgress: drawSegmentValues
 					});
-
-					var radius = myPieChart.outerRadius;
-
-					function drawSegmentValues()
-					{
-					    for(var i=0; i<myPieChart.segments.length; i++) 
-					    {
-					        ctx.fillStyle="white";
-					        var textSize = canvas.width/15;
-					        ctx.font= textSize+"px Verdana";
-					        // Get needed variables
-					        var value = myPieChart.segments[i].value/totalValue*100;
-					        if(Math.round(value) !== value)
-					        	value = (myPieChart.segments[i].value/totalValue*100).toFixed(1);
-					        value = value + '%';
-					        
-					        var startAngle = myPieChart.segments[i].startAngle;
-					        var endAngle = myPieChart.segments[i].endAngle;
-					        var middleAngle = startAngle + ((endAngle - startAngle)/2);
-
-					        // Compute text location
-					        var posX = (radius/2) * Math.cos(middleAngle) + midX;
-					        var posY = (radius/2) * Math.sin(middleAngle) + midY;
-
-					        // Text offside by middle
-					        var w_offset = ctx.measureText(value).width/2;
-					        var h_offset = textSize/4;
-
-					        ctx.fillText(value, posX - w_offset, posY + h_offset);
-					    }
-					}
-
-					function getTotalValue(arr) {
-					    var total = 0;
-					    for(var i=0; i<arr.length; i++)
-					        total += arr[i].value;
-					    return total;
-					}
 				</script>
 			</div>
 		</div>
