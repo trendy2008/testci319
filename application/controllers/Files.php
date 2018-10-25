@@ -47,6 +47,8 @@ class Files extends CI_Controller {
 		{
 		    $data = array('error' => $this->upload->display_errors());
 		    $data['csrf'] = $this->security->get_csrf_hash();
+
+		    header('Content-Type: application/json; charset=UTF-8');
 		    echo json_encode($data);
 		}else{
 		    $data = array('upload_data' => $this->upload->data());
@@ -64,6 +66,8 @@ class Files extends CI_Controller {
 		    ));
 		    // end insert to db
 		    $data['id_file'] = $this->db->insert_id();
+
+		    header('Content-Type: application/json; charset=UTF-8');
 		    echo json_encode($data);
 		}
     }
@@ -253,6 +257,7 @@ class Files extends CI_Controller {
 		$isi["rows"] = $data;
 		$isi["total"] = $jml;*/
 
+		header('Content-Type: application/json; charset=UTF-8');
 		echo json_encode($isi);
 	}
 
