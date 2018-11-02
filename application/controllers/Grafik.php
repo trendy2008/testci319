@@ -18,7 +18,7 @@ class Grafik extends CI_Controller {
 	{
 		$data['title'] = 'Dashboard';
 		$data['page'] = 'grafik/index';
-		$this->load->view('design/index',$data);
+		$this->load->view('blogs/mdb_blog',$data);
 	}
 
 

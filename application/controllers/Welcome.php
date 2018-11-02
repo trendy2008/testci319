@@ -42,35 +42,35 @@ class Welcome extends CI_Controller {
 
 		// test get data to array
 		$isi = array();
-		$q1 = $this->db->get('reff_provinsi')->result();
+		$q1 = $this->db->get_where('ms_regions', array('region_parent'=>0))->result();
 		$tq1 = array();
 		foreach ($q1 as $key) {
-			$tq1['kode_pro'] = $key->id;
-			$tq1['provinsi'] = $key->name;
+			$tq1['kode_pro'] = $key->region_id;
+			$tq1['provinsi'] = $key->region;
 			$tq1['isi2'] = array();
 
 			// kabupaten
-			$q2 = $this->db->get_where('reff_kabupaten', array('province_id'=>$key->id))->result();
+			$q2 = $this->db->get_where('ms_regions', array('region_parent'=>$key->region_id))->result();
 			$tq2 = array();
 			foreach ($q2 as $key2) {
-				$tq2['kode_kab'] = $key2->id;
-				$tq2['kabupaten'] = $key2->name;
+				$tq2['kode_kab'] = $key2->region_id;
+				$tq2['kabupaten'] = $key2->region;
 				$tq2['isi3'] = array();
 
 				// kecamatan
-				$q3 = $this->db->get_where('reff_kecamatan', array('regency_id'=>$key2->id))->result();
+				$q3 = $this->db->get_where('ms_regions', array('region_parent'=>$key2->region_id))->result();
 				$tq3 = array();
 				foreach ($q3 as $key3) {
-					$tq3['kode_kec'] = $key3->id;
-					$tq3['kecamatan'] = $key3->name;
+					$tq3['kode_kec'] = $key3->region_id;
+					$tq3['kecamatan'] = $key3->region;
 					$tq3['isi4'] = array();
 
 					// kelurahan
-					$q4 = $this->db->get_where('reff_kelurahan', array('district_id'=>$key3->id))->result();
+					$q4 = $this->db->get_where('ms_regions', array('region_parent'=>$key3->region_id))->result();
 					$tq4 = array();
 					foreach ($q4 as $key4) {
-						$tq4['kode_kel'] = $key4->id;
-						$tq4['kelurahan'] = $key4->name;
+						$tq4['kode_kel'] = $key4->region_id;
+						$tq4['kelurahan'] = $key4->region;
 
 						array_push($tq3['isi4'], $tq4);
 					}
@@ -148,6 +148,14 @@ class Welcome extends CI_Controller {
 
 		header('Content-Type: application/json; charset=UTF-8');
 		echo json_encode($csrf);
+	}
+
+
+
+
+	public function test()
+	{
+		$this->load->view('blogs/mdb_blog');
 	}
 
 

@@ -33,7 +33,7 @@ class Galery extends CI_Controller {
 			for ($i=0; $i < count($_POST['columns']); $i++) { 
 				array_push($columns_name, $this->db->escape_str($_POST['columns'][$i]['data']));
 			}
-			$search_value = $this->db->escape_str($_POST['search']['value']);
+			$search_value = $this->db->escape_str($_POST['search']/*['value']*/);
 			// end datatable variable
 
 			// query
@@ -49,7 +49,7 @@ class Galery extends CI_Controller {
 				$where .= ") ";
 			}
 
-			$jml = $this->db->query("SELECT count(id) as field from galery where status=? ", array($id))->row()->field;
+			$jml = $this->db->query("SELECT count(id) as field from galery where status=? ".$where, array($id))->row()->field;
 
 			$where .= "ORDER BY ".$columns_name[$order_column]." ".$order_dir;
 			$isi['wsearch'] = $where;
@@ -85,7 +85,7 @@ class Galery extends CI_Controller {
 		}else{
 			$data['title'] = 'Galery';
 			$data['page'] = 'galery/index';
-			$this->load->view('design/index',$data);
+			$this->load->view('blogs/mdb_blog',$data);
 		}
 	}
 
@@ -111,7 +111,7 @@ class Galery extends CI_Controller {
 		}else{
 			$data['title'] = 'Form tambah galery';
 			$data['page'] = 'galery/add';
-			$this->load->view('design/index',$data);
+			$this->load->view('blogs/mdb_blog',$data);
 		}
 	}
 
@@ -143,7 +143,7 @@ class Galery extends CI_Controller {
 			}else{
 				$data['title'] = 'Form ubah galery';
 				$data['page'] = 'galery/edit';
-				$this->load->view('design/index',$data);
+				$this->load->view('blogs/mdb_blog',$data);
 			}
 		}else{
 			echo 'id not macth..';

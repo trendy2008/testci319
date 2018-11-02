@@ -18,7 +18,7 @@ class Files extends CI_Controller {
 	{
 		$data['title'] = 'Index Files class';
 		$data['page'] = 'files/files';
-		$this->load->view('design/index',$data);
+		$this->load->view('blogs/mdb_blog',$data);
 	}
 
 
@@ -192,7 +192,7 @@ class Files extends CI_Controller {
 		for ($i=0; $i < count($_POST['columns']); $i++) { 
 			array_push($columns_name, $this->db->escape_str($_POST['columns'][$i]['data']));
 		}
-		$search_value = $this->db->escape_str($_POST['search']['value']);
+		$search_value = $this->db->escape_str($_POST['search']/*['value']*/);
 		// end datatable variable
 
 		// query

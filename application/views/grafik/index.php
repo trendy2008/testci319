@@ -4,7 +4,7 @@
 <script src="<?=base_url()?>src/js/Chart.PieceLabel.js"></script>
 <script src="<?=base_url()?>src/js/chartjs-plugin-labels.min.js"></script>
 <div class="row">
-	<div class="col-6">
+	<div class="col-12 mb-4">
 		<div class="card">
 			<div class="card-header">Donat</div>
 			<div class="card-body">
@@ -96,7 +96,7 @@
 	</div>
 
 
-	<div class="col-6">
+	<div class="col-12 mb-4">
 		<div class="card">
 			<div class="card-header">Bar</div>
 			<div class="card-body">
@@ -161,7 +161,7 @@
 
 
 
-	<div class="col-6" style="margin-top: 10px">
+	<div class="col-12 mb-4" style="margin-top: 10px">
 		<div class="card">
 			<div class="card-header">Line</div>
 			<div class="card-body">
@@ -250,7 +250,7 @@
 
 
 
-	<div class="col-6" style="margin-top: 10px">
+	<div class="col-12 mb-4" style="margin-top: 10px">
 		<div class="card">
 			<div class="card-header">Pie</div>
 			<div class="card-body">
@@ -299,7 +299,7 @@
 
 
 
-	<div class="col-6" style="margin-top: 10px">
+	<div class="col-12 mb-4" style="margin-top: 10px">
 		<div class="card">
 			<div class="card-header">Pie</div>
 			<div class="card-body">
@@ -367,7 +367,7 @@
 
 
 
-	<div class="col-6" style="margin-top: 10px">
+	<div class="col-12 mb-4" style="margin-top: 10px">
 		<div class="card">
 			<div class="card-header">Bar</div>
 			<div class="card-body">

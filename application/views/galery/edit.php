@@ -1,9 +1,7 @@
 
 
 <div class="card">
-	<div class="card-header">
-		<h4><?=$title?></h4>
-	</div>
+	<div class="card-header font-weight-bold"><?=$title?></div>
 	<div class="card-body">
 	
 		<?=form_open('galery/edit/?id='.$data->id, array('class'=>'form'))?>
@@ -33,8 +31,8 @@
 				}?>
 
 				<hr>
-				<button type="submit" style="" class="btn btn-primary">Simpan</button>
-				<button type="reset" style="" class="btn btn-primary" onclick="window.location.assign('<?=site_url('galery')?>')">Batal</button>
+				<button type="submit" style="" class="btn btn-primary btn-md">Simpan</button>
+				<button type="reset" style="" class="btn btn-primary btn-md" onclick="window.location.assign('<?=site_url('galery')?>')">Batal</button>
 
 			</div>
 			<div class="col-4">
@@ -48,7 +46,7 @@
 							$xfile = $this->db->get_where('files', array('file_id'=>$value))->row();
 							if(!empty($xfile)){
 								$srcImg = base_url('src/files/'.$xfile->file_name);
-								echo'<div id="sp-'.$xfile->file_id.'" class="col-3 text-center">
+								echo'<div id="sp-'.$xfile->file_id.'" class="col-6 text-center">
 									<a href="'.$srcImg.'" target="_blank"><img src="'.$srcImg.'" class="img-fluid rounded mt-2" height="75px" width="75px"></a>
 									<br>
 									<a href="'.site_url('files/download/?filename='.$xfile->file_name).'" target="_blank" class="fa fa-download" style="color:green"></a>
@@ -97,11 +95,13 @@ echo form_close();
 			contentType: false,
 			processData: false,
 			success:function(data){
-				var rt = JSON.parse(data);
+				// var rt = JSON.parse(data);
+				var rt = JSON.stringify(data);
+				var rt = jQuery.parseJSON(rt);
 				var srcImg = '<?=base_url('src/files/')?>'+rt.upload_data['file_name'];
 				// alert('Success upload file: '+rt.upload_data['orig_name']);
 				$('#files').val(tmp_files+rt.id_file+',');
-				$('#file_list').append('<div id="sp-'+rt.id_file+'" class="col-3 text-center">'+
+				$('#file_list').append('<div id="sp-'+rt.id_file+'" class="col-6 text-center">'+
 					'<a href="'+srcImg+'" target="_blank"><img src="'+srcImg+'" class="img-fluid rounded mt-2" height="75px" width="75px"></a>'+
 					'<br>'+
 					'<a href="<?=site_url('files/download/?filename=')?>'+rt.upload_data['file_name']+'" target="_blank" class="fa fa-download" style="color:green"></a>'+
@@ -109,6 +109,9 @@ echo form_close();
 					'</div> ');
 				$('input[name=<?=$this->security->get_csrf_token_name()?>]').val(rt.csrf);
 				$('#file_select').val('');
+				// $.each(data, function(i, item) {
+				//     alert(item.file_name);
+				// });​
 			},
 			error: function(data){
 				alert(data);

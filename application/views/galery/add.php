@@ -1,9 +1,7 @@
 
 
 <div class="card">
-	<div class="card-header">
-		<h4><?=$title?></h4>
-	</div>
+	<div class="card-header font-weight-bold"><?=$title?></div>
 	<div class="card-body">
 	
 		<?=form_open('', array('class'=>'form'))?>
@@ -24,8 +22,8 @@
 				<input type="hidden" name="files" id="files" value="<?=$this->input->post('files')?>">
 
 				<hr>
-				<button type="submit" style="" class="btn btn-primary">Simpan</button>
-				<button type="reset" style="" class="btn btn-primary" onclick="window.location.assign('<?=site_url('galery')?>')">Batal</button>
+				<button type="submit" style="" class="btn btn-primary btn-md">Simpan</button>
+				<button type="reset" style="" class="btn btn-primary btn-md" onclick="window.location.assign('<?=site_url('galery')?>')">Batal</button>
 
 			</div>
 			<div class="col-4">
@@ -68,17 +66,22 @@ echo form_close();
 			contentType: false,
 			processData: false,
 			success:function(data){
-				var rt = JSON.parse(data);
+				// var rt = JSON.parse(data);
+				var rt = JSON.stringify(data);
+				var rt = jQuery.parseJSON(rt);
 				var srcImg = '<?=base_url('src/files/')?>'+rt.upload_data['file_name'];
 				// alert('Success upload file: '+rt.upload_data['orig_name']);
 				$('#files').val(tmp_files+rt.id_file+',');
-				$('#file_list').append('<div id="sp-'+rt.id_file+'" class="col-3 text-center">'+
+				$('#file_list').append('<div id="sp-'+rt.id_file+'" class="col-6 text-center">'+
 					'<a href="'+srcImg+'" target="_blank"><img src="'+srcImg+'" class="img-fluid rounded mt-2" height="75px" width="75px"></a>'+
 					'<br>'+
 					'<a href="#" onclick="deletefile(\'sp-'+rt.id_file+'\', \''+rt.upload_data['file_name']+'\')" class="fa fa-trash" style="color:red"></a>'+
 					'</div> ');
 				$('input[name=<?=$this->security->get_csrf_token_name()?>]').val(rt.csrf);
 				$('#file_select').val('');
+				// $.each(data, function(i, item) {
+				//     alert(item[i].upload_data);
+				// });​
 			},
 			error: function(data){
 				alert(data);
