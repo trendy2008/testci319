@@ -35,7 +35,7 @@
     <!--Main Navigation-->
     <header>
 
-        <?php $this->load->view('blogs/site-nav-bar'); ?>
+        <?php #$this->load->view('blogs/site-nav-bar'); ?>
 
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
@@ -87,19 +87,19 @@
                     <!-- Right -->
                     <ul class="navbar-nav nav-flex-icons">
                         <li class="nav-item">
-                            <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-                                <i class="fa fa-facebook"></i>
+                            <a href="#" class="nav-link waves-effect" target="">
+                                <i class="fa fa-envelope"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                                <i class="fa fa-twitter"></i>
+                            <a href="#" class="nav-link waves-effect" target="">
+                                <i class="fa fa-search"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
-                                target="_blank">
-                                <i class="fa fa-github mr-2"></i>MDB GitHub
+                            <a href="#" class="nav-link border border-light rounded waves-effect"
+                                target="">
+                                <i class="fa fa-star"></i>MDB GitHub
                             </a>
                         </li>
                     </ul>
@@ -431,35 +431,25 @@
                         <div class="card mt-4 mb-3 wow fadeIn">
                             <div class="card-header font-weight-bold">Leave a reply</div>
                             <div class="card-body">
-
                                 <!-- Default form reply -->
                                 <form>
-
                                     <!-- Comment -->
                                     <div class="form-group">
                                         <label for="replyFormComment">Your comment</label>
                                         <textarea class="form-control" id="replyFormComment" rows="5"></textarea>
                                     </div>
-
                                     <!-- Name -->
                                     <label for="replyFormName">Your name</label>
                                     <input type="email" id="replyFormName" class="form-control">
-
                                     <br>
-
                                     <!-- Email -->
                                     <label for="replyFormEmail">Your e-mail</label>
                                     <input type="email" id="replyFormEmail" class="form-control">
-
-
                                     <div class="text-center mt-4">
                                         <button class="btn btn-info btn-md" type="submit">Post</button>
                                     </div>
                                 </form>
                                 <!-- Default form reply -->
-
-
-
                             </div>
                         </div>
                         <!--/.Reply-->
@@ -471,11 +461,8 @@
                     <div class="col-md-4 mb-4">
 
                         <!--Card: Jumbotron-->
-                        <div class="card gradient-custom mb-4 wow fadeIn">
-
-                            <!-- Content -->
+                        <!-- <div class="card gradient-custom mb-4 wow fadeIn">
                             <div class="card-body text-white text-center">
-
                                 <h4 class="mb-4">
                                     <strong>Learn Bootstrap 4 with MDB</strong>
                                 </h4>
@@ -489,11 +476,18 @@
                                 <a target="_blank" href="https://mdbootstrap.com/bootstrap-tutorial/" class="btn btn-outline-white btn-md">Start free tutorial
                                     <i class="fa fa-graduation-cap ml-2"></i>
                                 </a>
-
                             </div>
-                            <!-- Content -->
-                        </div>
+                        </div> -->
                         <!--Card: Jumbotron-->
+
+                        <!--Card: pasang menu-->
+                        <div class="card mb-4 wow fadeIn bg-danger">
+                            <div class="card-header"><span class="fa fa-list"></span> Menu List</div>
+                            <!-- <div class="card-body"> -->
+                                <?php $this->load->view('blogs/menu_red')?>
+                            <!-- </div> -->
+                        </div>
+                        <!--Card: pasang menu-->
 
                         <!--Card : Dynamic content wrapper-->
                         <div class="card mb-4 text-center wow fadeIn">

@@ -106,9 +106,9 @@ class Welcome extends CI_Controller {
 			'font_path' => './src/Axettac.ttf',
 			'img_width' => 140,
 			'img_height' => 30,
-			'expiration' => 50,	#7200,
-			'word_length' => 8,
-			'font_size' => 18,
+			'expiration' => 7200,
+			'word_length' => 5,
+			'font_size' => 20,
 	        'colors' => array(
                 'background' => array(255, 255, 255),
                 'border' => array(255, 255, 255),
@@ -156,6 +156,20 @@ class Welcome extends CI_Controller {
 	public function test()
 	{
 		$this->load->view('blogs/mdb_blog');
+	}
+
+
+
+	public function login()
+	{
+		$this->load->helper('form');
+		if(!$_POST){
+			$data['page'] = 'frm_login';
+			$this->load->view('blogs/mdb_blog', $data);
+		}else{
+			header('Content-Type: application/json');
+			echo json_encode($_POST);
+		}
 	}
 
 
