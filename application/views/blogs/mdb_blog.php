@@ -76,7 +76,7 @@
                               Dropdown
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="<?=site_url('welcome/form_mail')?>">Mail Send</a>
                               <a class="dropdown-item" href="#">Another action</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#">Something else here</a>
@@ -428,30 +428,25 @@
                         <!--/.Comments-->
                         <?php */ ?>
                         <!--Reply-->
-                        <div class="card mt-4 mb-3 wow fadeIn">
+                        <!-- <div class="card mt-4 mb-3 wow fadeIn">
                             <div class="card-header font-weight-bold">Leave a reply</div>
                             <div class="card-body">
-                                <!-- Default form reply -->
                                 <form>
-                                    <!-- Comment -->
                                     <div class="form-group">
                                         <label for="replyFormComment">Your comment</label>
                                         <textarea class="form-control" id="replyFormComment" rows="5"></textarea>
                                     </div>
-                                    <!-- Name -->
                                     <label for="replyFormName">Your name</label>
                                     <input type="email" id="replyFormName" class="form-control">
                                     <br>
-                                    <!-- Email -->
                                     <label for="replyFormEmail">Your e-mail</label>
                                     <input type="email" id="replyFormEmail" class="form-control">
                                     <div class="text-center mt-4">
                                         <button class="btn btn-info btn-md" type="submit">Post</button>
                                     </div>
                                 </form>
-                                <!-- Default form reply -->
                             </div>
-                        </div>
+                        </div> -->
                         <!--/.Reply-->
 
                     </div>
@@ -490,35 +485,21 @@
                         <!--Card: pasang menu-->
 
                         <!--Card : Dynamic content wrapper-->
-                        <div class="card mb-4 text-center wow fadeIn">
-
+                        <!-- <div class="card mb-4 text-center wow fadeIn">
                             <div class="card-header">Do you want to get informed about new articles?</div>
-
-                            <!--Card content-->
                             <div class="card-body">
-
-                                <!-- Default form login -->
                                 <form>
-
-                                    <!-- Default input email -->
                                     <label for="defaultFormEmailEx" class="grey-text">Your email</label>
                                     <input type="email" id="defaultFormLoginEmailEx" class="form-control">
-
                                     <br>
-
-                                    <!-- Default input password -->
                                     <label for="defaultFormNameEx" class="grey-text">Your name</label>
                                     <input type="text" id="defaultFormNameEx" class="form-control">
-
                                     <div class="text-center mt-4">
                                         <button class="btn btn-info btn-md" type="submit">Sign up</button>
                                     </div>
                                 </form>
-                                <!-- Default form login -->
-
                             </div>
-
-                        </div>
+                        </div> -->
                         <!--/.Card : Dynamic content wrapper-->
 
                         <!--Card-->

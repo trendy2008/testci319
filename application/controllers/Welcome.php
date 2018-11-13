@@ -173,4 +173,60 @@ class Welcome extends CI_Controller {
 	}
 
 
+
+	function form_mail()
+	{
+		$this->load->library('session');
+		$this->load->helper('form');
+		if(!$_POST){
+			$data['page'] = 'frm_smail';
+			$this->load->view('blogs/mdb_blog', $data);
+		}else{
+			$vconf = explode('#', 'smtp#mail.akbidkartinijkt.ac.id#587#info@akbidkartinijkt.ac.id#info_12345#TRUE');
+			// $vconf = explode('#', 'smtp#ssl://smtp.googlemail.com#465#kampustrendy@gmail.com#ebkaldadaltjhnou#TRUE');
+			$config = array(
+				'protocol' => $vconf[0],
+				'smtp_host' => $vconf[1],
+				'smtp_port' => $vconf[2],
+				'smtp_user' => $vconf[3],
+				'smtp_pass' => $vconf[4],
+				'starttls' => $vconf[5],
+				'smtp_timeout' => '180',
+				'mailtype' => 'html',
+				'charset' => 'utf-8',
+				'wordwrap' => true,
+				'newline' => "\r\n",
+			);
+			$this->load->library('email', $config);
+			$this->email->clear(TRUE);
+			$this->email->from($vconf[3], 'TESTING MAIL FROM `'.base_url().'`' );
+			$this->email->to($this->input->post('to'));
+			if($this->input->post('cc')<>''){
+				$this->email->cc($this->input->post('cc'));
+			}
+			$this->email->subject($this->input->post('subject'));
+			$this->email->message($this->input->post('message'));
+			if(!empty($this->input->post('attach'))){
+				foreach($this->input->post('attach') as $key) {
+					$this->email->attach($key);
+				}
+			}
+			$sndmail = $this->email->send();
+			
+			$dbg = $this->email->print_debugger();
+
+			if($sndmail){
+				$msg = json_encode(array('status'=>true, 'msg'=>'berhasil mengirim email ke '.$this->input->post('to')));
+			}else{
+				$msg = json_encode(array('status'=>false, 'msg'=>'gagal mengirim email ke '.$this->input->post('to')));
+			}
+
+			$this->session->set_flashdata('fmsg', $msg.'; '.$dbg);
+			redirect('welcome/form_mail');
+			// header('Content-Type: application/json');
+			// echo json_encode($_POST);
+		}
+	}
+
+
 }
