@@ -1,4 +1,6 @@
 
+
+
 <div class="card">
 	<div class="card-header font-weight-bold"><?=$title?></div>
 	<div class="card-body table-responsive">
@@ -21,11 +23,11 @@
 				  		</td>
 					</tr>
 					<tr>
-						<td>Galery Status</td>
+						<td>Status</td>
 						<td>:</td>
 						<td>
 							<select id="status" onchange="get_data()">
-								<option value="0">Delete</option>
+								<option value="0">Non Aktif</option>
 								<option value="1" selected="">Aktif</option>
 							</select>
 						</td>
@@ -49,9 +51,9 @@
 					<thead class="">
 						<tr>
 							<th>ID</th>
-							<th>TITLE</th>
-							<th>DESCRIPTION</th>
-							<th>FILES ID</th>
+							<th>NAME</th>
+							<th>VALUE</th>
+							<th>STATUS</th>
 							<th>LINK</th>
 						</tr>
 					</thead>
@@ -63,13 +65,12 @@
 	<div class="card-footer">card footer</div>
 </div>
 
+
+
 <link href="<?=base_url()?>src/plugins/DataTables/datatables.css" rel="stylesheet" />
 <script src="<?=base_url()?>src/plugins/DataTables/datatables.js"></script>
 <!-- <link href="<?=base_url()?>src/plugins/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.css" rel="stylesheet" /> -->
 <!-- <script src="<?=base_url()?>src/plugins/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.js"></script> -->
-<link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <script type="text/javascript">	
     // for dataTable
     $(document).ready(function() {
@@ -81,10 +82,6 @@
 	})
 
 	function get_data(){
-		// var hsl = get_token_csrf();
-		// var obj = JSON.parse(hsl);
-		// alert(hsl.name+' = '+hsl.hash);
-		// $('#table-datatable').DataTable().destroy();
 		$('#table-datatable').DataTable({
 	        "bDestroy": true,
 		    "bPaginate": true,
@@ -96,29 +93,44 @@
 	        processing: true,
 	        serverSide: true,
 	        ajax: {
-				"url": "<?=site_url('galery/index/')?>"+$('#status').val(),
+				"url": "<?=site_url('sys/app/config_list/')?>",
 				"type": "POST",
 				"data": {
-					// "length": $('#length').val(),
 					"csrf_test_name": "<?=$this->security->get_csrf_hash()?>",
 					"status": $('#status').val(),
 					"search": $('#search').val(),
 				}
 			},
 			columns: [
-				{"data": "id", "orderable": false },
-	            {"data": "title" },
-	            {"data": "description" },
-	            {"data": "files", "orderable": false },
-				// {"data": "linkEdit" },
+				{"data": "config_id", "orderable": true },
+	            {"data": "config_name" },
+	            {
+	            	"data": "config_desc",
+	            	"render": function(data){
+	            		return data;
+	            	}
+	            },
+	            {
+	            	"data": "config_status", 
+	            	"orderable": false,
+	            	"render": function(data){
+	            		if(data==0){
+	            			return 'Non Aktif';
+	            		}else if(data==1){
+	            			return 'Aktif';
+	            		}else{
+	            			return '';
+	            		}
+	            	}
+	            },
 				{
 					data: 'idhash',
 					orderable: false,
 					"render": function (data) {
 					  return ''+
-					    '<a class="" href="<?=site_url('galery/edit/?id=')?>'+data+'" title="edit data" rel="facebox"><i class="fa fa-edit"></i>edit</a> '+
-					    '<a class="" href="<?=site_url('galery/edit/?id=')?>'+data+'" title="view data"><i class="fa fa-search"></i>view</a> '+
-					    '<a class="" href="<?=site_url('galery/delete/?id=')?>'+data+'" title="delete data" onclick="return confirm(\'hapus data ?\')" style="color:red"><i class="fa fa-trash"></i>delete</a> '+
+					    '<a class="" href="<?=site_url('sys/app/config_edit/?id=')?>'+data+'" title="edit data" rel="facebox"><i class="fa fa-edit"></i> </a> '+
+					    '<a class="" href="<?=site_url('sys/app/config_edit/?id=')?>'+data+'" title="view data"><i class="fa fa-search"></i> </a> '+
+					    '<a class="" href="<?=site_url('sys/app/config_remove/?id=')?>'+data+'" title="delete data" onclick="return confirm(\'hapus data ?\')" style="color:red"><i class="fa fa-trash"></i> </a> '+
 					    '';
 					}
 				}
@@ -128,29 +140,7 @@
 				$('td:eq(0)',nRow).html(index);
 				return nRow;
 			},
-	        buttons: [
-	            'print',
-	            // 'colvis',
-        		'excel',
-	        ],
 	    });
 	}
 
-</script>
-
-
-<link rel="stylesheet" href="<?=base_url('src/plugins/')?>facebox-master/src/facebox.css" />
-<script src="<?=base_url('src/plugins/')?>facebox-master/src/facebox.js"></script>
-<script type="text/javascript">
-	$(function(){
-		$('a[rel*=facebox]').facebox({
-	        loadingImage : '<?=base_url('src/plugins/')?>facebox-master/src/loading.gif',
-	        closeImage   : '<?=base_url('src/plugins/')?>facebox-master/src/closelabel.png',
-	    	// width : "auto",
-	    });
-	});
-	$(document).bind('close.facebox', function() {
-	    // location.reload(true);
-	    // reloadCanvas();
-    });
 </script>

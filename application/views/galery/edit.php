@@ -4,7 +4,7 @@
 	<div class="card-header font-weight-bold"><?=$title?></div>
 	<div class="card-body">
 	
-		<?=form_open('galery/edit/?id='.$data->id, array('class'=>'form'))?>
+		<?=form_open('galery/edit/?id='.$this->lopen->encode($data->id), array('class'=>'form'))?>
 		<div class="row">
 			<div class="col-8">
 			

@@ -58,7 +58,7 @@
                     <!-- Left -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link waves-effect" href="#">Home
+                            <a class="nav-link waves-effect" href="<?=base_url()?>">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -77,7 +77,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="<?=site_url('welcome/form_mail')?>">Mail Send</a>
-                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="<?=site_url('sys/app/config_list')?>">Configs</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#">Something else here</a>
                             </div>
@@ -124,356 +124,7 @@
                 <div class="row">
 
                     <!--Grid column-->
-                    <div class="col-md-8 mb-4">
-
-                        <?php
-                        /*
-                        *   load page
-                        */
-                        if(isset($page)){
-                            $this->load->view($page);
-                        }
-                        ?>
-
-                        <?php /* ?>
-                        <!--Featured Image-->
-                        <div class="card mb-4 wow fadeIn">
-
-                            <img src="http://mdbootstrap.com/img/Photos/Slides/img%20(144).jpg" class="img-fluid" alt="">
-
-                        </div>
-                        <!--/.Featured Image-->
-
-                        <!--Card-->
-                        <div class="card mt-4 mb-4 wow fadeIn">
-
-                            <!--Card content-->
-                            <div class="card-body text-center">
-
-                                <p class="h5 my-4">What is MDB?</p>
-
-                                <p>MDB is world's most popular Material Design framework for building responsive, mobile-first
-                                    websites and apps.</p>
-
-                                <h5 class="my-4">
-                                    <strong>MDB - trusted by 400 000 + developers &amp; designers</strong>
-                                </h5>
-
-                                <!-- Logo carousel -->
-                                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="1800">
-                                    <div class="carousel-inner">
-                                        <!-- First slide -->
-                                        <div class="carousel-item">
-                                            <!--Grid row-->
-                                            <div class="row">
-
-                                                <!--First column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/nike.png" class="img-fluid px-4" alt="Nike - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/First column-->
-
-                                                <!--Second column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/amazon.png" class="img-fluid px-4" alt="Amazon - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/Second column-->
-
-                                                <!--Third column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/sony.png" class="img-fluid px-4" alt="Sony - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/Third column-->
-
-                                                <!--Fourth column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/samsung.png" class="img-fluid px-4" alt="Samsung - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/Fourth column-->
-
-                                            </div>
-                                            <!--/Grid row-->
-                                        </div>
-                                        <!-- First slide -->
-
-                                        <!-- Second slide -->
-                                        <div class="carousel-item active carousel-item-left">
-                                            <!--Grid row-->
-                                            <div class="row">
-
-                                                <!--First column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/airbus.png" class="img-fluid px-4" alt="Airbus - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/First column-->
-
-                                                <!--Second column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/yahoo.png" class="img-fluid px-4" alt="Yahoo - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/Second column-->
-
-                                                <!--Third column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/deloitte.png" class="img-fluid px-4" alt="Deloitte - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/Third column-->
-
-                                                <!--Fourth column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/ge.png" class="img-fluid px-4" alt="GE - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/Fourth column-->
-
-                                            </div>
-                                            <!--/Grid row-->
-                                        </div>
-                                        <!-- Second slide -->
-
-                                        <!-- Third slide -->
-                                        <div class="carousel-item carousel-item-next carousel-item-left">
-                                            <!--Grid row-->
-                                            <div class="row">
-
-                                                <!--First column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/kpmg.png" class="img-fluid px-4" alt="KPMG - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/First column-->
-
-                                                <!--Second column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/unity.png" class="img-fluid px-4" alt="Unity - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/Second column-->
-
-                                                <!--Third column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/ikea.png" class="img-fluid px-4" alt="Ikea - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/Third column-->
-
-                                                <!--Fourth column-->
-                                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
-                                                    <img src="https://mdbootstrap.com/img/logo/brands/aegon.png" class="img-fluid px-4" alt="Aegon - logo" style="max-height: 40px">
-                                                </div>
-                                                <!--/Fourth column-->
-
-                                            </div>
-                                            <!--/Grid row-->
-                                        </div>
-                                        <!-- Third slide -->
-                                    </div>
-                                </div>
-                                <!-- Logo carousel -->
-
-                                <hr>
-
-                                <a class="btn btn-outline-primary" href="https://mdbootstrap.com/getting-started/" role="button" target="_blank">MDB free download<i class="fa fa-download ml-2"></i></a>
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-                        <!--Card-->
-                        <div class="card mb-4 wow fadeIn">
-
-                            <!--Card content-->
-                            <div class="card-body">
-
-                                <p class="h5 my-4">That's a very long heading </p>
-
-
-                                <blockquote class="blockquote">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                    <footer class="blockquote-footer">Someone famous in
-                                        <cite title="Source Title">Source Title</cite>
-                                    </footer>
-                                </blockquote>
-
-                                <p class="h5 my-4">That's a very long heading </p>
-
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, ut rerum deserunt corporis
-                                    ducimus at, deleniti ea alias dolor reprehenderit sit vel. Incidunt id illum doloribus,
-                                    consequuntur maiores sed eligendi.</p>
-
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, ut rerum deserunt corporis
-                                    ducimus at, deleniti ea alias dolor reprehenderit sit vel. Incidunt id illum doloribus,
-                                    consequuntur maiores sed eligendi.</p>
-
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, ut rerum deserunt corporis
-                                    ducimus at, deleniti ea alias dolor reprehenderit sit vel. Incidunt id illum doloribus,
-                                    consequuntur maiores sed eligendi.</p>
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-                        <!--Card-->
-                        <div class="card mb-4 wow fadeIn">
-
-                            <div class="card-header font-weight-bold">
-                                <span>About author</span>
-                                <span class="pull-right">
-                                    <a href="">
-                                        <i class="fa fa-facebook mr-2"></i>
-                                    </a>
-                                    <a href="">
-                                        <i class="fa fa-twitter mr-2"></i>
-                                    </a>
-                                    <a href="">
-                                        <i class="fa fa-instagram mr-2"></i>
-                                    </a>
-                                    <a href="">
-                                        <i class="fa fa-linkedin mr-2"></i>
-                                    </a>
-                                </span>
-                            </div>
-
-                            <!--Card content-->
-                            <div class="card-body">
-
-                                <div class="media d-block d-md-flex mt-3">
-                                    <img class="d-flex mb-3 mx-auto z-depth-1" src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg" alt="Generic placeholder image"
-                                        style="width: 100px;">
-                                    <div class="media-body text-center text-md-left ml-md-3 ml-0">
-                                        <h5 class="mt-0 font-weight-bold">Caroline Horwitz
-                                        </h5>
-                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-                                        quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
-                                        similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum
-                                        fuga.
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
-
-                        <!--Comments-->
-                        <div class="card card-comments mb-3 wow fadeIn">
-                            <div class="card-header font-weight-bold">3 comments</div>
-                            <div class="card-body">
-
-                                <div class="media d-block d-md-flex mt-4">
-                                    <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (20).jpg" alt="Generic placeholder image">
-                                    <div class="media-body text-center text-md-left ml-md-3 ml-0">
-                                        <h5 class="mt-0 font-weight-bold">Miley Steward
-                                            <a href="" class="pull-right">
-                                                <i class="fa fa-reply"></i>
-                                            </a>
-                                        </h5>
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-                                        <div class="media d-block d-md-flex mt-3">
-                                            <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (27).jpg" alt="Generic placeholder image">
-                                            <div class="media-body text-center text-md-left ml-md-3 ml-0">
-                                                <h5 class="mt-0 font-weight-bold">Tommy Smith
-                                                    <a href="" class="pull-right">
-                                                        <i class="fa fa-reply"></i>
-                                                    </a>
-                                                </h5>
-                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-                                                ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
-                                                sunt explicabo.
-                                            </div>
-                                        </div>
-
-                                        <!-- Quick Reply -->
-                                        <div class="form-group mt-4">
-                                            <label for="quickReplyFormComment">Your comment</label>
-                                            <textarea class="form-control" id="quickReplyFormComment" rows="5"></textarea>
-
-                                            <div class="text-center">
-                                                <button class="btn btn-info btn-sm" type="submit">Post</button>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="media d-block d-md-flex mt-3">
-                                            <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (21).jpg" alt="Generic placeholder image">
-                                            <div class="media-body text-center text-md-left ml-md-3 ml-0">
-                                                <h5 class="mt-0 font-weight-bold">Sylvester the Cat
-                                                    <a href="" class="pull-right">
-                                                        <i class="fa fa-reply"></i>
-                                                    </a>
-                                                </h5>
-                                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-                                                tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="media d-block d-md-flex mt-3">
-                                    <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg" alt="Generic placeholder image">
-                                    <div class="media-body text-center text-md-left ml-md-3 ml-0">
-                                        <h5 class="mt-0 font-weight-bold">Caroline Horwitz
-                                            <a href="" class="pull-right">
-                                                <i class="fa fa-reply"></i>
-                                            </a>
-                                        </h5>
-                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti
-                                        quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
-                                        similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum
-                                        fuga.
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!--/.Comments-->
-                        <?php */ ?>
-                        <!--Reply-->
-                        <!-- <div class="card mt-4 mb-3 wow fadeIn">
-                            <div class="card-header font-weight-bold">Leave a reply</div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="replyFormComment">Your comment</label>
-                                        <textarea class="form-control" id="replyFormComment" rows="5"></textarea>
-                                    </div>
-                                    <label for="replyFormName">Your name</label>
-                                    <input type="email" id="replyFormName" class="form-control">
-                                    <br>
-                                    <label for="replyFormEmail">Your e-mail</label>
-                                    <input type="email" id="replyFormEmail" class="form-control">
-                                    <div class="text-center mt-4">
-                                        <button class="btn btn-info btn-md" type="submit">Post</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div> -->
-                        <!--/.Reply-->
-
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
                     <div class="col-md-4 mb-4">
-
-                        <!--Card: Jumbotron-->
-                        <!-- <div class="card gradient-custom mb-4 wow fadeIn">
-                            <div class="card-body text-white text-center">
-                                <h4 class="mb-4">
-                                    <strong>Learn Bootstrap 4 with MDB</strong>
-                                </h4>
-                                <p>
-                                    <strong>Best & free guide of responsive web design</strong>
-                                </p>
-                                <p class="mb-4">
-                                    <strong>The most comprehensive tutorial for the Bootstrap 4. Loved by over 500 000 users. Video
-                                        and written versions available. Create your own, stunning website.</strong>
-                                </p>
-                                <a target="_blank" href="https://mdbootstrap.com/bootstrap-tutorial/" class="btn btn-outline-white btn-md">Start free tutorial
-                                    <i class="fa fa-graduation-cap ml-2"></i>
-                                </a>
-                            </div>
-                        </div> -->
-                        <!--Card: Jumbotron-->
 
                         <!--Card: pasang menu-->
                         <div class="card mb-4 wow fadeIn bg-danger">
@@ -484,66 +135,30 @@
                         </div>
                         <!--Card: pasang menu-->
 
-                        <!--Card : Dynamic content wrapper-->
-                        <!-- <div class="card mb-4 text-center wow fadeIn">
-                            <div class="card-header">Do you want to get informed about new articles?</div>
-                            <div class="card-body">
-                                <form>
-                                    <label for="defaultFormEmailEx" class="grey-text">Your email</label>
-                                    <input type="email" id="defaultFormLoginEmailEx" class="form-control">
-                                    <br>
-                                    <label for="defaultFormNameEx" class="grey-text">Your name</label>
-                                    <input type="text" id="defaultFormNameEx" class="form-control">
-                                    <div class="text-center mt-4">
-                                        <button class="btn btn-info btn-md" type="submit">Sign up</button>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-8 mb-4">
+
+                        <?php if($this->session->flashdata('fmessage')<>''){?>
+                                <div class="row">
+                                    <div class="col-md-12 mb-4">
+                                        <div class="alert alert-info">
+                                            <h1><?=$this->session->flashdata('fmessage')?></h1>
+                                        </div>
                                     </div>
-                                </form>
-                            </div>
-                        </div> -->
-                        <!--/.Card : Dynamic content wrapper-->
+                                </div>
+                        <?php }?>
 
-                        <!--Card-->
-                        <div class="card mb-4 wow fadeIn">
-
-                            <div class="card-header">Related articles</div>
-
-                            <!--Card content-->
-                            <div class="card-body">
-
-                                <ul class="list-unstyled">
-                                    <li class="media">
-                                        <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder7.jpg" alt="Generic placeholder image">
-                                        <div class="media-body">
-                                            <a href="">
-                                                <h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
-                                            </a>
-                                            Cras sit amet nibh libero, in gravida nulla (...)
-                                        </div>
-                                    </li>
-                                    <li class="media my-4">
-                                        <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder6.jpg" alt="An image">
-                                        <div class="media-body">
-                                            <a href="">
-                                                <h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
-                                            </a>
-                                            Cras sit amet nibh libero, in gravida nulla (...)
-                                        </div>
-                                    </li>
-                                    <li class="media">
-                                        <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder5.jpg" alt="Generic placeholder image">
-                                        <div class="media-body">
-                                            <a href="">
-                                                <h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
-                                            </a>
-                                            Cras sit amet nibh libero, in gravida nulla (...)
-                                        </div>
-                                    </li>
-                                </ul>
-
-                            </div>
-
-                        </div>
-                        <!--/.Card-->
+                        <?php
+                        /*
+                        *   load page
+                        */
+                        if(isset($page)){
+                            $this->load->view($page);
+                        }
+                        ?>
 
                     </div>
                     <!--Grid column-->

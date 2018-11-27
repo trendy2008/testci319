@@ -16,8 +16,10 @@ class Files extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = 'Index Files class';
-		$data['page'] = 'files/files';
+		$data = [
+			'title' => 'Index Files class',
+			'page' => 'files/files',
+		];
 		$this->load->view('blogs/mdb_blog',$data);
 	}
 
@@ -268,34 +270,34 @@ class Files extends CI_Controller {
 	/*
 	*	for notifikasi
 	*/
-	function cek_for_send()
-	{
-		$q = $this->db->query("SELECT * FROM rapat_notulen_tindaklanjut 
-			where  tndk_emailsend < 3 
-			and tndk_status > 0 and tndk_status < 4
-			and DATEDIFF(tndk_batasakhir, '".date('Y-m-d')."') <= 3
-			")->result();
-		if(!empty($q)){
-			// echo json_encode($q);
-			foreach ($q as $key) {
-				// $this->kirim_email_notifikasi($key->rapat_id, $key->id_pegawai);
-				$this->kirim_email_notifikasi($key->rapat_id, $key->tndk_id);
-			}
-		}
+	// function cek_for_send()
+	// {
+	// 	$q = $this->db->query("SELECT * FROM rapat_notulen_tindaklanjut 
+	// 		where  tndk_emailsend < 3 
+	// 		and tndk_status > 0 and tndk_status < 4
+	// 		and DATEDIFF(tndk_batasakhir, '".date('Y-m-d')."') <= 3
+	// 		")->result();
+	// 	if(!empty($q)){
+	// 		// echo json_encode($q);
+	// 		foreach ($q as $key) {
+	// 			// $this->kirim_email_notifikasi($key->rapat_id, $key->id_pegawai);
+	// 			$this->kirim_email_notifikasi($key->rapat_id, $key->tndk_id);
+	// 		}
+	// 	}
 
-		$q = $this->db->query("SELECT * FROM rapat_notulen_tindaklanjut 
-			where  tndk_emailsend < 4
-			and tndk_status > 0 and tndk_status < 4
-			and DATEDIFF(tndk_batasakhir, '".date('Y-m-d')."') <= 1
-			")->result();
-		if(!empty($q)){
-			// echo json_encode($q);
-			foreach ($q as $key) {
-				// $this->kirim_email_notifikasi($key->rapat_id, $key->id_pegawai);
-				$this->kirim_email_notifikasi($key->rapat_id, $key->tndk_id);
-			}
-		}
-	}
+	// 	$q = $this->db->query("SELECT * FROM rapat_notulen_tindaklanjut 
+	// 		where  tndk_emailsend < 4
+	// 		and tndk_status > 0 and tndk_status < 4
+	// 		and DATEDIFF(tndk_batasakhir, '".date('Y-m-d')."') <= 1
+	// 		")->result();
+	// 	if(!empty($q)){
+	// 		// echo json_encode($q);
+	// 		foreach ($q as $key) {
+	// 			// $this->kirim_email_notifikasi($key->rapat_id, $key->id_pegawai);
+	// 			$this->kirim_email_notifikasi($key->rapat_id, $key->tndk_id);
+	// 		}
+	// 	}
+	// }
 
 
 }

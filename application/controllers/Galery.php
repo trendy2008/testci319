@@ -10,6 +10,7 @@ class Galery extends CI_Controller {
 	{
 		parent::__construct();
 		$this->path = './src/files/';
+		$this->load->library(['lopen']);
 	}
 
 
@@ -40,7 +41,7 @@ class Galery extends CI_Controller {
 			$where = "";
 			if($search_value<>''){
 				$where .= " AND (";
-				foreach ($columns_name as $key => $value) {
+				foreach ($columns_name as $key => $value) if(!array_keys(array(4),$key)) {
 					if($key > 0){
 						$where .= "OR";
 					}
@@ -61,12 +62,13 @@ class Galery extends CI_Controller {
 			if(!empty($q)){
 				$row = array();
 				foreach ($q as $key) {
+					$row['idhash'] = $this->lopen->encode($key->id);
 					$row['id'] = $key->id;
 					$row['title'] = $key->title;
 					$row['description'] = $key->description;
 					$row['files'] = $key->files;
 					$row['status'] = $key->status;
-					$row['linkEdit'] = '<a href="'.site_url('galery/edit/?id='.$key->id).'" target="_blank">edit</a>';
+					$row['linkEdit'] = '<a href="'.site_url('galery/edit/?id='.$this->lopen->encode($key->id)).'" target="_blank">edit</a>';
 					array_push($data, $row);
 				}
 			}
@@ -83,8 +85,10 @@ class Galery extends CI_Controller {
 			echo json_encode($isi);
 
 		}else{
-			$data['title'] = 'Galery';
-			$data['page'] = 'galery/index';
+			$data = [
+				'title' => 'Galery',
+				'page' => 'galery/index',
+			];
 			$this->load->view('blogs/mdb_blog',$data);
 		}
 	}
@@ -98,19 +102,21 @@ class Galery extends CI_Controller {
 		$this->form_validation->set_rules('description', 'Description', 'min_length[1]');
 		if($this->form_validation->run())
 		{
-			$params = array(
+			$params = [
 				'title' => strip_tags($this->input->post('title')),
 				'description' => $this->input->post('description'),
 				'files' => strip_tags(substr($this->input->post('files'), 0,-1)),
 				'insert_time' => date('y-m-d H:i:s'),
 				'insert_at' => $this->session->user_id,
-			);
+			];
 			$this->db->insert('galery', $params);
 
 			redirect('galery');
 		}else{
-			$data['title'] = 'Form tambah galery';
-			$data['page'] = 'galery/add';
+			$data = [
+				'title' => 'Form tambah galery',
+				'page' => 'galery/add',
+			];
 			$this->load->view('blogs/mdb_blog',$data);
 		}
 	}
@@ -119,7 +125,7 @@ class Galery extends CI_Controller {
 
 	function edit()
 	{
-		$id = $this->input->get('id');
+		$id = $this->lopen->decode($this->input->get('id'));
 		$data['data'] = $this->db->get_where('galery', array('id'=>$id))->row();
 		if(!empty($data['data']))
 		{
@@ -129,14 +135,16 @@ class Galery extends CI_Controller {
 			$this->form_validation->set_rules('status', 'Status', 'integer|min_length[1]|max_length[1]');
 			if($this->form_validation->run())
 			{
-				$params = array(
+				$params = [
 					'title' => strip_tags($this->input->post('title')),
 					'description' => $this->input->post('description'),
 					'files' => strip_tags(substr($this->input->post('files'), 0,-1)),
-					'status' => strip_tags($this->input->post('status')),
 					'update_time' => date('y-m-d H:i:s'),
 					'update_at' => $this->session->user_id,
-				);
+				];
+				if($this->input->post('status')){
+					$params['status'] = strip_tags($this->input->post('status'));
+				}
 				$this->db->update('galery', $params, array('id'=>$data['data']->id));
 
 				redirect('galery');
@@ -154,7 +162,7 @@ class Galery extends CI_Controller {
 
 	function delete()
 	{
-		$id = $this->input->get('id');
+		$id = $this->lopen->decode($this->input->get('id'));
 		$data['data'] = $this->db->get_where('galery', array('id'=>$id))->row();
 		if(!empty($data['data']))
 		{

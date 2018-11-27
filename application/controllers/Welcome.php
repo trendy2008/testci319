@@ -182,15 +182,18 @@ class Welcome extends CI_Controller {
 			$data['page'] = 'frm_smail';
 			$this->load->view('blogs/mdb_blog', $data);
 		}else{
-			$vconf = explode('#', 'smtp#mail.akbidkartinijkt.ac.id#587#info@akbidkartinijkt.ac.id#info_12345#TRUE');
+			// $vconf = explode('#', 'smtp#mail.akbidkartinijkt.ac.id#587#info@akbidkartinijkt.ac.id#info_12345#TRUE');
 			// $vconf = explode('#', 'smtp#ssl://smtp.googlemail.com#465#kampustrendy@gmail.com#ebkaldadaltjhnou#TRUE');
+			// $vconf = explode('#', 'smtp#mail.setkab.go.id#587#semnas2018@setkab.go.id#18hukum20#TRUE');
+			$vconf = explode('#', 'smtp#mail.setkab.go.id#25#semnas2018@setkab.go.id#18hukum20#TRUE#tls');
 			$config = array(
 				'protocol' => $vconf[0],
 				'smtp_host' => $vconf[1],
 				'smtp_port' => $vconf[2],
 				'smtp_user' => $vconf[3],
 				'smtp_pass' => $vconf[4],
-				'starttls' => $vconf[5],
+				// 'starttls' => $vconf[5],
+				'smtp_crypto' => $vconf[6],
 				'smtp_timeout' => '180',
 				'mailtype' => 'html',
 				'charset' => 'utf-8',
@@ -226,6 +229,23 @@ class Welcome extends CI_Controller {
 			// header('Content-Type: application/json');
 			// echo json_encode($_POST);
 		}
+	}
+
+
+	public function search_instansi()
+	{
+		$where = "";
+		$val = $this->db->escape_like_str($this->input->get('val'));
+		if($val<>''){
+			$where .= "where inskerja like '%".$val."%' ";
+		}
+		$q = $this->db->query("SELECT inskerja from emeeting.conf_user_eks ".$where." group by inskerja limit 10 ")->result();
+		$arr = array();
+		foreach ($q as $key) {
+			array_push($arr, $key->inskerja);
+		}
+		// header('Content-type: application/json');
+		echo json_encode($arr);
 	}
 
 
